@@ -1,0 +1,18 @@
+CREATE TABLE stocks (
+    symbol VARCHAR(20) PRIMARY KEY,
+    company_name VARCHAR(255),
+    market_cap BIGINT,
+    sector VARCHAR(100),
+    industry VARCHAR(100),
+    beta DECIMAL(4, 3),
+    price DECIMAL(10, 2),
+    last_annual_dividend DECIMAL(10, 2),
+    volume INTEGER,
+    exchange VARCHAR(100),
+    exchange_short_name VARCHAR(10),
+    country VARCHAR(10),
+    is_etf BOOLEAN,
+    is_fund BOOLEAN,
+    is_actively_trading BOOLEAN,
+    pe_ratio DECIMAL(10, 2),
+    industry_pe_ratio DECIMAL(10, 2)

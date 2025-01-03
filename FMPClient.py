@@ -6,11 +6,13 @@ class FMPClient:
     def __init__(self, api_key):
         self.base_url = "https://financialmodelingprep.com/api/v3/stock-screener"
         self.api_key=api_key
+
     def _make_request(self, params):
         params['apikey'] = self.api_key
         try:
-            response = requests.get(self.base_url, params=params)
-            response.raise_for_status()  # Raise HTTPError for bad responses (4xx or 5xx)
+            url = self.base_url
+            response = requests.get(url, params=params)
+            response.raise_for_status()
             return response.json()
         except requests.exceptions.RequestException as e:
             print(f"Error making API request: {e}")
@@ -18,10 +20,11 @@ class FMPClient:
         except json.JSONDecodeError as e:
             print(f"Error decoding JSON response: {e}")
             return None
-    def get_stock_list(self):
+
+    def get_stock_list(self, industry: str, market_cap_from: float, market_cap_to: float):
         params = {
-            "marketCapRange":"1000000000%3A5000000000",
-            "industry":"Technology",
-            "apikey":self.api_key
+            "marketCapRange": str(market_cap_from) + "%3A" + str(market_cap_to),
+            "country":"US",
+            "industry":industry,
         }
         return self._make_request(params)

@@ -1,4 +1,5 @@
 import json
+import time
 import os
 import requests
 
@@ -12,8 +13,12 @@ class FMPClient:
         try:
             url = self.base_url
             response = requests.get(url, params=params)
+            if response.status_code == 429:
+                time.sleep(5)
+                response = requests.get(url, params=params)
             response.raise_for_status()
             return response.json()
+
         except requests.exceptions.RequestException as e:
             print(f"Error making API request: {e}")
             return None
